@@ -113,9 +113,9 @@ public class PostController {
 	@PutMapping("/post/{id}")
 	public @ResponseBody CMRespDto<?> update(@PathVariable int id, @Valid @RequestBody PostSaveReqDto postSaveReqDto,  
 			BindingResult bindingResult, @AuthenticationPrincipal PrincipalDetails principalDetails ){
-		
-		postService.수정하기(id, postSaveReqDto, principalDetails.getUser().getId());
-		return new CMRespDto<>(1, null);
+		//세션 인증이 아니라 저장이므로, 서비스에게 맡겨도 전혀 관점지향프로그래밍에 어긋나지 않는다. 
+		int result = postService.수정하기(id, postSaveReqDto, principalDetails.getUser().getId());
+		return new CMRespDto<>(result, null);
 	}
 	
 	

@@ -23,7 +23,10 @@ public class ReplyService {
 	@Transactional
 	public Reply 댓글쓰기(ReplySaveReqDto replySaveReqDto, User principal) {
 		
-		Post postEntity = postRepository.findById(replySaveReqDto.getPostId()).get();	
+		Post postEntity = postRepository.findById(replySaveReqDto.getPostId()).orElseThrow(()->{
+			return new IllegalArgumentException("id를 찾을 수 없습니다.");
+		});
+				
 		Reply reply = replySaveReqDto.toEntity();
 		reply.setUser(principal);
 		reply.setPost(postEntity);
@@ -35,7 +38,10 @@ public class ReplyService {
 	
 	@Transactional
 	public int 삭제하기(int id, int userId) {
-		Reply replyEntity = replyRepository.findById(id).get();
+		Reply replyEntity = replyRepository.findById(id).orElseThrow(()->{
+			return new IllegalArgumentException("id를 찾을 수 없습니다.");
+		});
+				
 		if(replyEntity.getUser().getId() == userId) {
 			replyRepository.deleteById(id);
 			return 1;

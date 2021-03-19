@@ -29,6 +29,10 @@ public class GlobalExceptionHandler {
 			return new CMRespDto<>(-1,null);
 		}
 
+		@ExceptionHandler(value = MyAuthenticationException.class)
+		public CMRespDto<?> myAuthenticationException(Exception e){
+			return new CMRespDto<>(-1,null);
+		}
 		
 
 }

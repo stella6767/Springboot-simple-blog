@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h1>에러남 ㅇㅋ?</h1>
+<h1>Validation 통과 못함 ㅇㅋ? </h1>
 </body>
 </html>

@@ -32,7 +32,10 @@ public class PostService {
 	
 	@Transactional
 	public int 삭제하기(int id, int userId) {
-		Post postEntity = postRepository.findById(id).get();
+		Post postEntity = postRepository.findById(id).orElseThrow(()->{
+			return new IllegalArgumentException("id를 찾을 수 없습니다.");
+		});
+				
 		if(postEntity.getUser().getId() == userId) {
 			postRepository.deleteById(id);
 			return 1;
@@ -47,18 +50,26 @@ public class PostService {
 	
 	@Transactional(readOnly = true)
 	public Post 상세보기(int id){
-		return postRepository.findById(id).get();
+		return postRepository.findById(id).orElseThrow(()->{
+			return new IllegalArgumentException("id를 찾을 수 없습니다.");
+		});
+				
 	}
 	
 	
 	@Transactional
-	public void 수정하기(int id, PostSaveReqDto postSaveReqDto, int userId) {
-		Post postEntity = postRepository.findById(id).get(); //영속화
+	public int 수정하기(int id, PostSaveReqDto postSaveReqDto, int userId) {
+		Post postEntity = postRepository.findById(id).orElseThrow(()->{
+			return new IllegalArgumentException("id를 찾을 수 없습니다.");
+		});
+				
+		
 		if(postEntity.getUser().getId() == userId) {
 			postEntity.setTitle(postSaveReqDto.getTitle());
 			postEntity.setContent(postSaveReqDto.getContent());
+			return 1;
 		}else {
-			
+			return -1;
 		}
 
 	}//더티체킹
