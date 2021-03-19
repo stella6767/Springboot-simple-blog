@@ -24,6 +24,8 @@ public class AuthService {
 		
 		user.setPassword(encPassword);
 		user.setRole(RoleType.USER);
+		
+		System.out.println("user: "+user);
 		userRepository.save(user);
 	}
 	

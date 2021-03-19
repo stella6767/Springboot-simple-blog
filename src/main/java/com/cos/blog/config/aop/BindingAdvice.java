@@ -94,6 +94,8 @@ public class BindingAdvice {
 			}
 
 		}
+		
+		proceedingJoinPoint.proceed();
 		return url; // 정상적이면 함수의 스택을 실행해라
 
 	}

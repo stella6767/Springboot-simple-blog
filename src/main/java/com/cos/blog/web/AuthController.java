@@ -33,6 +33,8 @@ public class AuthController {
 	
 	@PostMapping("/join")
 	public String join(@Valid AuthJoinReqDto authJoinReqDto, BindingResult bindingResult) {
+		
+		System.out.println(authJoinReqDto);
 		authService.회원가입(authJoinReqDto.toEntity());
 		return "redirect:/loginForm"; //  /auth  재활용
 	}
