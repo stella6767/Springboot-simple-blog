@@ -41,10 +41,7 @@ public class PostService {
 			return 1;
 		}else {
 			return -1;
-		}
-		
-		
-		
+		}		
 	}
 	
 	
@@ -76,8 +73,7 @@ public class PostService {
 	
 	
 	@Transactional(readOnly = true) //1.변경감지 안하도록 하고(쓸데없는 연산제거), 2.고립성 유지 
-	public Page<Post> 검색하기(String keyword, Pageable pageable){
-		
+	public Page<Post> 검색하기(String keyword, Pageable pageable){		
 		return postRepository.findByKeyword(keyword,pageable);
 	}
 	

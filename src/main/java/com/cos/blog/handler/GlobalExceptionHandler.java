@@ -33,6 +33,4 @@ public class GlobalExceptionHandler {
 		public CMRespDto<?> myAuthenticationException(Exception e){
 			return new CMRespDto<>(-1,null);
 		}
-		
-
 }

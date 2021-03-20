@@ -37,9 +37,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
 					throw new MyAuthenticationException();
 				}else { 
 					return true;
-				}	
-				
-				
+				}						
 
 			}
 
