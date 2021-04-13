@@ -34,6 +34,9 @@ import lombok.RequiredArgsConstructor;
 public class PostController {
 
 	private final PostService postService;
+	
+	private static final Integer POSTS_PER_PAGE = 4;
+    private static final Integer PAGES_PER_BLOCK = 5;
 		
 	
 	@GetMapping("/")
@@ -48,6 +51,14 @@ public class PostController {
 		System.out.println("offest: " +pageable.getOffset()); //시작점
 		
 		Page<Post> posts = postService.전체찾기(pageable);		
+		
+		System.out.println("전체 페이지: " + posts.getTotalPages());
+		System.out.println("현재 페이지: " + posts.getNumber());
+		
+		int perPage; //10개 단위
+		perPage = posts.getTotalPages() % 10;
+		
+		
 		
 		model.addAttribute("posts",posts);
 		return "post/list"; 
@@ -82,10 +93,13 @@ public class PostController {
 		post.setUser(details.getUser());
 		Post postEntity = postService.글쓰기(post);
 		
-		if(postEntity == null) {
+		System.out.println("postEntity: " + postEntity);
+		
+		if(postEntity == null) { //이미 AOP 에서 처리했지만 2중으로.
 			return "post/saveForm";
+			
 		}else {
-			return "redirect:/";
+			return "redirect:/";  //AOP 가 문제네, AOP 처리하면 redirect를 안 먹는데?????
 		}
 		
 	}

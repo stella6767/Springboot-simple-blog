@@ -9,7 +9,7 @@
 <%@ include file="../layout/header.jsp"%>
 
 
-<title>Bootstrap 4 Login/Register Form</title>
+<title>Login Form</title>
 </head>
 <body>
 	<div id="logreg-forms">

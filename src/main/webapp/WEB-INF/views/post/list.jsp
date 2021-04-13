@@ -15,7 +15,12 @@
 		</div>
 		<br>
 	</c:forEach>
+	
+
+
+
 	<ul class="pagination justify-content-center">
+
 		<c:choose>
 			<c:when test="${posts.first}">
 				<li class="page-item disabled"><a class="page-link">Previous</a></li>
@@ -25,6 +30,22 @@
 			</c:otherwise>
 		</c:choose>
 
+		<c:forEach varStatus="status" begin="0" end="${posts.totalPages-1}">
+			<!-- 여기서 페이징 10개씩 나눠서 처리하는 로직을 추가시켜줄려고 했지만 귀찮아서 생략 -->
+
+			<c:choose>
+				<c:when test="${posts.number eq status.current}">
+					<li class=" page-item active"><a class="page-link" href="?page=${status.current}"> ${status.current+1}  </a></li>
+				</c:when>
+
+				<c:otherwise>
+					<li class=" page-item"><a class="page-link" href="?page=${status.current}"> ${status.current+1} </a></li>
+				</c:otherwise>
+			</c:choose>
+
+
+		</c:forEach>
+
 		<c:choose>
 			<c:when test="${posts.last}">
 				<li class="page-item disabled"><a class="page-link">Next</a></li>
@@ -33,7 +54,10 @@
 				<li class="page-item"><a class="page-link" href="?page=${posts.number+1}">Next</a></li>
 			</c:otherwise>
 		</c:choose>
+
+
 	</ul>
+
 
 
 </div>

@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -20,6 +21,7 @@ import com.cos.blog.config.oauth.OAuth2DetailsService;
 import lombok.RequiredArgsConstructor;
 
 
+@EnableGlobalMethodSecurity(prePostEnabled=true)
 @RequiredArgsConstructor
 @EnableWebSecurity
 @Configuration // ioc 등록
@@ -55,10 +57,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //				
 //			}
 //		});
-		.defaultSuccessUrl("/") //위의 successHandler와 비슷하지만, 사용자가 갈려고 하는 페이지가 있을 때는 안 먹힘
+//		.defaultSuccessUrl("/") //위의 successHandler와 비슷하지만, 사용자가 갈려고 하는 페이지가 있을 때는 안 먹힘
+		.successHandler(new MyLoginSuccessHandler())
 		.and()
 		.oauth2Login()
 		.userInfoEndpoint()
 		.userService(oAuth2DetailsService);
+		
+
 	}
 }

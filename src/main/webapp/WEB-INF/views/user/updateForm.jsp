@@ -1,15 +1,29 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<link rel="stylesheet" href="/css/loginForm.css">
 <%@ include file="../layout/header.jsp"%>
 
-<form>
-	<input type="hidden" id="id" value="${id}"/>
-	<input type ="text" value="${principal.user.username}" placeholder="Username" id="username" readonly="readonly"/> <br/>
-	<input type ="password" value="" placeholder="Password" id="password"/> <br/>
-	<input type ="email" value="${principal.user.email}" placeholder="Email" id="email"/> <br/>	
-	<button id="btn-update">회원수정</button>
-</form>
+
+<div class="border"  id="logreg-forms">
+		
+			<h3 class="font-weight-normal pt-3" style="text-align: center; border: 1px; height: 50px;">유저정보</h3>
+			<div class="social-login">
+	
+			<form>
+				<input type="hidden" id="id" value="${id}"/>
+				<input type ="text" value="${principal.user.username}" class="form-control"  placeholder="Username" id="username" readonly="readonly"/><br/>
+				<input type ="password" value=""  class="form-control" placeholder="Password" id="password"/> <br/>
+				
+				<input type ="email" class="form-control" value="${principal.user.email}" placeholder="Email" id="email"/><br/> 
+
+				<button id="btn-update" class="btn btn-success btn-block mt-3" >
+					<i class="fas fa-sign-in-alt"></i> 회원수정
+				</button>
+			</form>
+
+
+	</div>
+
 
 <script>
 	$("#btn-update").on("click",(e)=>{
@@ -49,5 +63,3 @@
 </script>
 
 
-
-<%@ include file="../layout/footer.jsp"%>

@@ -11,11 +11,19 @@ import org.springframework.stereotype.Component;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 
+import com.cos.blog.handler.ExceptionList;
+import com.cos.blog.utils.Script;
 import com.cos.blog.web.dto.CMRespDto;
 
+import lombok.RequiredArgsConstructor;
+
+@RequiredArgsConstructor
 @Component
 @Aspect
 public class BindingAdvice {
+	
+	
+	public final ExceptionList exceptionList;
 
 	@Around("execution(* com.cos.blog.web..*Controller.*(..)) && !execution(* com.cos.blog.web..AuthController.*(..))"
 			+ "&& !execution(public String com.cos.blog.web..*Controller.*(..))")
@@ -41,10 +49,9 @@ public class BindingAdvice {
 					for (FieldError error : bindingResult.getFieldErrors()) {
 						errorMap.put(error.getField(), error.getDefaultMessage());
 						
-						System.out.println("??" +errorMap);
 					}
-					System.out.println("??");
-					return new CMRespDto<>(-1, errorMap);
+					exceptionList.addExceptionList("Validation 통과실패");
+					return "error/error1";
 				}
 			}
 		}
@@ -53,7 +60,7 @@ public class BindingAdvice {
 	}
 
 	@Around("execution(* com.cos.blog.web..AuthController.join(..)) || execution(* com.cos.blog.web..PostController.save(..)) ")
-	public String joinCheck(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
+	public Object joinCheck(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
 		String type = proceedingJoinPoint.getSignature().getDeclaringTypeName();
 		String method = proceedingJoinPoint.getSignature().getName();
 
@@ -62,15 +69,15 @@ public class BindingAdvice {
 
 		Object[] args = proceedingJoinPoint.getArgs();
 		
-		String url;
+		String errorurl;
 		
 		
 		if(type.contains("Auth")) {
-			url ="redirect:/loginForm";	
+			errorurl ="error/error1";	
 		}else {
-			url ="post/saveForm";
-		}
-		
+			//url ="redirect:/"; //redirect 여기선 안 먹네..
+			errorurl = "post/saveForm";
+		}		
 		
 		
 		for (Object arg : args) {
@@ -86,18 +93,20 @@ public class BindingAdvice {
 					for (FieldError error : bindingResult.getFieldErrors()) {
 						errorMap.put(error.getField(), error.getDefaultMessage());
 
-						System.out.println("??" + errorMap);
 					}
-					System.out.println("??");
-					return "error/error1";
+					
+					//return Script.alert("validation에 통과못했습니다.");  안 되네..
+					exceptionList.addExceptionList("Validation 통과실패");
+					return errorurl;
 				}
 			}
 
 		}
 		
-		proceedingJoinPoint.proceed();
-		return url; // 정상적이면 함수의 스택을 실행해라
+		return proceedingJoinPoint.proceed();// 정상적이면 함수의 스택을 실행해라
+		//return url; // 이것때문이네.. 제일 마지막에 실행하는 것이.. 여기인데 redirect가 안 먹히네.. 여기서 처리하면,
 
+	
 	}
 
 
