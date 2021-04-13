@@ -1,9 +1,14 @@
 package com.cos.blog.service;
 
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
 
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -77,5 +82,27 @@ public class PostService {
 		return postRepository.findByKeyword(keyword,pageable);
 	}
 	
+	
+	@Transactional(readOnly = true)  
+	public Long 글개수(){		
+		return postRepository.count();
+	}
+	
+    // 페이지로 가져오기
+    @Transactional(readOnly = true)
+    public Page<Post> findAllByOrderByIdDesc(Integer pageNum, Integer postsPerPage) {
+        Page<Post> page = postRepository.findAll(
+                // PageRequest의 page는 0부터 시작
+                PageRequest.of(pageNum - 1, postsPerPage,
+                        Sort.by(Sort.Direction.DESC, "id")
+        ));
+        
+        return page;
+        
+        //return page.stream().map(Post::new).collect(Collectors.toList());
+        
+
+    }
+
 	
 }

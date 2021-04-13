@@ -9,7 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface PostRepository extends JpaRepository<Post, Integer>{
 	
-
+	List<Post> findAllByOrderByIdDesc(Pageable pageable);
 	
 	@Query(value ="select * FROM post WHERE title LIKE %:keyword% OR content LIKE %:keyword%",
 			countQuery = "SELECT count(*) FROM post WHERE title like %:keyword% OR content LIKE %:keyword%", nativeQuery = true)

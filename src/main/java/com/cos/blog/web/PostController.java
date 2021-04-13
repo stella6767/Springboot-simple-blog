@@ -1,6 +1,7 @@
 package com.cos.blog.web;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.validation.Valid;
 
@@ -18,12 +19,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cos.blog.config.auth.PrincipalDetails;
 import com.cos.blog.domain.post.Post;
 import com.cos.blog.domain.post.PostRepository;
 import com.cos.blog.service.PostService;
+import com.cos.blog.utils.Paginator;
 import com.cos.blog.web.dto.CMRespDto;
 import com.cos.blog.web.post.dto.PostSaveReqDto;
 
@@ -36,31 +39,28 @@ public class PostController {
 	private final PostService postService;
 	
 	private static final Integer POSTS_PER_PAGE = 4;
-    private static final Integer PAGES_PER_BLOCK = 5;
+    private static final Integer PAGES_PER_BLOCK = 3;
 		
 	
 	@GetMapping("/")
-	public String findAll(Model model, @PageableDefault(sort = "id",direction = Sort.Direction.DESC, size = 4) Pageable pageable,
+	public String findAll(Model model,  @RequestParam(value = "page", defaultValue = "1") Integer page,
 			@AuthenticationPrincipal PrincipalDetails details) {
 		
-		System.out.println("누구로 로그인 됐을까?");
-//		System.out.println(details.isOAuth()); 요것 때문에 로그인 안하면 널 포인트 익셉션 뜸
-//		System.out.println(details.getAttributes());
-//		System.out.println(details.getUser().getUsername());
-		System.out.println("페이지넘버: " + pageable.getPageNumber());
-		System.out.println("offest: " +pageable.getOffset()); //시작점
 		
-		Page<Post> posts = postService.전체찾기(pageable);		
-		
-		System.out.println("전체 페이지: " + posts.getTotalPages());
-		System.out.println("현재 페이지: " + posts.getNumber());
-		
-		int perPage; //10개 단위
-		perPage = posts.getTotalPages() % 10;
-		
-		
-		
-		model.addAttribute("posts",posts);
+		System.out.println("받은 페이지값: " + page);
+
+	       try {
+	            Paginator paginator = new Paginator(PAGES_PER_BLOCK, POSTS_PER_PAGE, postService.글개수());
+	            Map<String, Object> pageInfo = paginator.getFixedBlock(page);
+
+	            model.addAttribute("pageInfo", pageInfo);
+	        } catch(IllegalStateException e) {
+	            model.addAttribute("pageInfo", null);
+	            System.err.println(e);
+	        }
+	       
+	       
+		model.addAttribute("posts",postService.findAllByOrderByIdDesc(page, POSTS_PER_PAGE));
 		return "post/list"; 
 	}
 	
