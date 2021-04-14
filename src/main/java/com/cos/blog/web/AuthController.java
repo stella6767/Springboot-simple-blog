@@ -39,7 +39,7 @@ public class AuthController {
 		return "redirect:/loginForm"; //  /auth  재활용
 	}
 	
-
+	
 	
 	
 }

@@ -50,12 +50,18 @@ public class PostService {
 	}
 	
 	
-	@Transactional(readOnly = true)
+	@Transactional
 	public Post 상세보기(int id){
-		return postRepository.findById(id).orElseThrow(()->{
-			return new IllegalArgumentException("id를 찾을 수 없습니다.");
-		});
-				
+		
+		int result = postRepository.mUpateCount(id);
+		
+		if(result == 1) {
+			return postRepository.findById(id).orElseThrow(()->{
+				return new IllegalArgumentException("id를 찾을 수 없습니다.");
+			});		
+		}else {
+			throw new IllegalArgumentException("id를 찾을 수 없습니다.");
+		}
 	}
 	
 	

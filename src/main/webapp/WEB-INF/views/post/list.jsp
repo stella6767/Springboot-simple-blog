@@ -8,7 +8,9 @@
 			<div class="card-body">
 				<div class="d-flex justify-content-between">
 					<h4 class="card-title">${post.title}</h4>
-					<div class="">작성자: ${post.user.username}</div>
+					<div class="">작성자: ${post.user.username}
+						<div >${post.count}</div>
+					</div>
 				</div>
 				<a href="/post/${post.id}" class="btn btn-primary">상세보기</a>
 			</div>
