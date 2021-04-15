@@ -35,7 +35,13 @@ public class AuthController {
 	public String join(@Valid AuthJoinReqDto authJoinReqDto, BindingResult bindingResult) {
 		
 		System.out.println(authJoinReqDto);
-		authService.회원가입(authJoinReqDto.toEntity());
+		
+		if(authJoinReqDto.getUsername().equals("stella")) {
+			authService.관리자가입(authJoinReqDto.toEntity());			
+		}else {
+			authService.회원가입(authJoinReqDto.toEntity());
+		}
+		
 		return "redirect:/loginForm"; //  /auth  재활용
 	}
 	

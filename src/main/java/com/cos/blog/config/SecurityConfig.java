@@ -6,6 +6,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -17,11 +18,12 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 import com.cos.blog.config.oauth.OAuth2DetailsService;
+import com.navercorp.lucy.security.xss.servletfilter.XssEscapeServletFilter;
 
 import lombok.RequiredArgsConstructor;
 
 
-@EnableGlobalMethodSecurity(prePostEnabled=true)
+@EnableGlobalMethodSecurity(prePostEnabled=true) // 특정 주소로 접근을 하면 권한 및 인증을 미리 체크하겠다는 뜻.
 @RequiredArgsConstructor
 @EnableWebSecurity
 @Configuration // ioc 등록
@@ -39,7 +41,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.csrf().disable();   
+//		http
+//        .headers()
+//        .xssProtection()
+//        .and()
+//        .contentSecurityPolicy("script-src 'self'");
+		
+		http.csrf().disable();  
 		http.authorizeRequests()
 		.antMatchers("/user/**","/post/**","/reply/**").access("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')") //user와 post만 성문을 닫아둔다.
 		.antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')") //관리자만 들어올 수 있도록	    
@@ -66,4 +74,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		
 
 	}
+	
+	
+
 }

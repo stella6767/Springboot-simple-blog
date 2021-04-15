@@ -46,4 +46,9 @@ public class Reply {
 	
 	@CreationTimestamp
 	private Timestamp createDate;	
+	
+	
+	public Reply(String content) { //단위테스트 용도 생성자
+		this.content = content;
+	}
 }

@@ -7,8 +7,10 @@ import javax.validation.constraints.Size;
 import com.cos.blog.domain.reply.Reply;
 import com.cos.blog.domain.user.User;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
+@AllArgsConstructor
 @Data
 public class ReplySaveReqDto {
 

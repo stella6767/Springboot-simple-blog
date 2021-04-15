@@ -29,4 +29,21 @@ public class AuthService {
 		userRepository.save(user);
 	}
 	
+	
+	@Transactional
+	public void 관리자가입(User user) { 
+		String rawPassword = user.getPassword();
+		String encPassword = bCryptPasswordEncoder.encode(rawPassword);
+		
+		user.setPassword(encPassword);
+		user.setRole(RoleType.ADMIN);
+		
+		System.out.println("user: "+user);
+		userRepository.save(user);
+	}
+	
+	
+	
+	
+	
 }
