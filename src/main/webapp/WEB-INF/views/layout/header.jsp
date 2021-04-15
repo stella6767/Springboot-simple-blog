@@ -24,11 +24,12 @@
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" crossorigin="anonymous">
 
+<script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
 </head>
 <body>
 	<nav class="navbar navbar-expand-md bg-dark navbar-dark">
 		<!-- Brand -->
-		<a class="navbar-brand" href="/">Blog</a>
+		<a class="navbar-brand" href="/">SpringBoot Simple Blog</a>
 
 		<!-- Toggler/collapsibe Button -->
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
@@ -41,6 +42,7 @@
 					<ul class="navbar-nav">
 						<li class="nav-item"><a class="nav-link" href="/loginForm">로그인</a></li>
 						<li class="nav-item"><a class="nav-link" href="/joinForm">회원가입</a></li>
+						<li class="nav-item"><a class="nav-link" href="/profile">주인정보</a></li>
 					</ul>
 				</div>
 				<form class="form-inline" action="/post/search" method="GET">
@@ -56,6 +58,7 @@
 						<li class="nav-item"><a class="nav-link" href="/admin/user">회원관리</a></li>
 						<li class="nav-item"><a class="nav-link" href="/admin/post">게시글관리</a></li>
 						<li class="nav-item"><a class="nav-link" href="/admin/reply">댓글관리</a></li>
+						<li class="nav-item"><a class="nav-link" href="/profile">주인정보</a></li>
 						<li class="nav-item"><a class="nav-link" href="/logout">로그아웃</a></li>
 					</ul>
 				</div>
@@ -71,6 +74,7 @@
 					<ul class="navbar-nav">
 						<li class="nav-item"><a class="nav-link" href="/post/saveForm">글쓰기</a></li>
 						<li class="nav-item"><a class="nav-link" href="/user/${principal.user.id}">회원정보보기</a></li>
+						<li class="nav-item"><a class="nav-link" href="/profile">주인정보</a></li>
 						<li class="nav-item"><a class="nav-link" href="/logout">로그아웃</a></li>
 					</ul>
 				</div>

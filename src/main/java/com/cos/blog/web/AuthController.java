@@ -47,5 +47,10 @@ public class AuthController {
 	
 	
 	
+	@GetMapping("/profile") //내 소개
+	public String myProfile() {
+		return "auth/profile";
+	}
+	
 	
 }
