@@ -16,7 +16,7 @@ spring:
       
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/cos?serverTimezone=Asia/Seoul
+    url: jdbc:mysql://database-1.cdmmeu7x2epu.us-east-2.rds.amazonaws.com:3306/cos?serverTimezone=Asia/Seoul
     username: cos
     password: cos1234
     

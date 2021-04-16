@@ -151,7 +151,7 @@
                       <div class="progress mb-3" style="height: 5px">
                         <div class="progress-bar bg-primary" role="progressbar" style="width: 0%" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100"></div>
                       </div>
-                      <small>Cloud System (AWS)</small>
+                      <small>Cloud System (AWS+Docker)</small>
                       <div class="progress mb-3" style="height: 5px">
                         <div class="progress-bar bg-primary" role="progressbar" style="width: 15%" aria-valuenow="66" aria-valuemin="0" aria-valuemax="100"></div>
                       </div>
