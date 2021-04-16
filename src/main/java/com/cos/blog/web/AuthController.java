@@ -41,7 +41,6 @@ public class AuthController {
 		}else {
 			authService.회원가입(authJoinReqDto.toEntity());
 		}
-		
 		return "redirect:/loginForm"; //  /auth  재활용
 	}
 	

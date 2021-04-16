@@ -17,8 +17,8 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://database-1.cdmmeu7x2epu.us-east-2.rds.amazonaws.com:3306/cos?serverTimezone=Asia/Seoul
-    username: cos
-    password: cos1234
+    username: admin   #AWS RDS 계정
+    password: stella6767 #AWS RDS 비번
     
   jpa:
     open-in-view: true
