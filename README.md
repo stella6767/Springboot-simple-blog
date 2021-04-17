@@ -12,7 +12,7 @@
 - JSTL
 - validation
 - Spring AOP
-
+- lucy Filter
 
 
 ## DB 설정
@@ -23,5 +23,14 @@ GRANT ALL PRIVILEGES ON *.* TO 'cos'@'%';
 create database cos;
 
 ```
+
+
+
+## 배포 설명
+
+<https://blog.naver.com/alsrb9434/222312900440>
+
+
+
 
 
