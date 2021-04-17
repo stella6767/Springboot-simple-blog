@@ -31,6 +31,8 @@ create database cos;
 <https://blog.naver.com/alsrb9434/222312900440>
 
 
+## 블로그 주소
+<http://ec2-18-220-175-98.us-east-2.compute.amazonaws.com:8080/>
 
 
 
