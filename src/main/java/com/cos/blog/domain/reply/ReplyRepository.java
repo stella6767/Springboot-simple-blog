@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface ReplyRepository extends JpaRepository<Reply, Integer>{
 
-	@Query(value ="select * FROM reply WHERE content LIKE %:content%", nativeQuery = true)
+	@Query(value ="select r.* FROM Reply r WHERE r.content LIKE %:content%", nativeQuery = true)
     List<Reply> findByContent(String content);
 	
 	

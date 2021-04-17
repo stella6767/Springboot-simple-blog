@@ -12,11 +12,11 @@ public interface PostRepository extends JpaRepository<Post, Integer>{
 	
 	List<Post> findAllByOrderByIdDesc(Pageable pageable);
 	
-	@Query(value ="select * FROM post WHERE title LIKE %:keyword% OR content LIKE %:keyword%",
-			countQuery = "SELECT count(*) FROM post WHERE title like %:keyword% OR content LIKE %:keyword%", nativeQuery = true)
+	@Query(value ="select p.* FROM Post p WHERE p.title LIKE %:keyword% OR p.content LIKE %:keyword%",
+			countQuery = "SELECT count(*) FROM Post p WHERE p.title like %:keyword% OR p.content LIKE %:keyword%", nativeQuery = true)
     Page<Post> findByKeyword(String keyword,Pageable pageable);
 	
-	@Query(value ="select * FROM post WHERE title LIKE %:keyword% OR content LIKE %:keyword%", nativeQuery = true)
+	@Query(value ="select p.* FROM Post p WHERE p.title LIKE %:keyword% OR p.content LIKE %:keyword%", nativeQuery = true)
     List<Post> findByKeyword(String keyword);
 	
 	
